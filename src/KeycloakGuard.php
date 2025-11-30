@@ -156,7 +156,7 @@ class KeycloakGuard implements Guard
             $methodOnProvider = $this->config['user_provider_custom_retrieve_method'] ?? null;
 
             if ($methodOnProvider) {
-                $user = $this->provider->{$methodOnProvider}($this->decodedToken, $credentials);
+                $user = $this->provider->{$methodOnProvider}($this->decodedToken, $credentials, $this->getTokenForRequest());
             } else {
                 $user = $this->provider->retrieveByCredentials($credentials);
             }
@@ -214,7 +214,7 @@ class KeycloakGuard implements Guard
 
         return false;
     }
-    
+
     /**
      * Check if authenticated user has a any role into resource
      * @param string $resource
