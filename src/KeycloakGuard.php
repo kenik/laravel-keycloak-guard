@@ -162,7 +162,21 @@ class KeycloakGuard implements Guard
             }
 
             if (!$user) {
-                throw new UserNotFoundException("User not found. Credentials: ".json_encode($credentials));
+                $debugCredential = [];
+                $debugFields = explode(',', $this->config['credential_debug']);
+
+                foreach($debugFields as $attribute) {
+
+                    if (!isset($this->decodedToken->{$attribute})) {
+                        $credentialValues = 'No key in token data';
+                    } else {
+                        $credentialValues = !empty($this->decodedToken->{$attribute}) ? $this->decodedToken->{$attribute} : 'No value in token data';
+                    }
+
+                    $debugCredential[$attribute] = $credentialValues;
+                }
+
+                throw new UserNotFoundException("User not found. Credentials: ".json_encode($debugCredential, JSON_UNESCAPED_UNICODE));
             }
         } else {
             $class = $this->provider->getModel();

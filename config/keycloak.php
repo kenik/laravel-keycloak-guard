@@ -11,6 +11,8 @@ return [
 
     'user_provider_credential' => env('KEYCLOAK_USER_PROVIDER_CREDENTIAL', 'username'),
 
+    'credential_debug' => env('KEYCLOAK_CREDENTIAL_DEBUG', 'email'),
+
     'token_principal_attribute' => env('KEYCLOAK_TOKEN_PRINCIPAL_ATTRIBUTE', 'preferred_username'),
 
     'append_decoded_token' => env('KEYCLOAK_APPEND_DECODED_TOKEN', false),
